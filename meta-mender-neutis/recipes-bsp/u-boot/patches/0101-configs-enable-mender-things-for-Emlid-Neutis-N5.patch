@@ -1,0 +1,39 @@
+From b88eef35124287b10b640bf5930a8ab8080ddea0 Mon Sep 17 00:00:00 2001
+From: Aleksandr Aleksandrov <aleksandr.aleksandrov@emlid.com>
+Date: Tue, 23 Oct 2018 17:29:16 +0300
+Subject: [PATCH 1/2] configs: enable mender things for Emlid Neutis N5
+
+Signed-off-by: Aleksandr Aleksandrov <aleksandr.aleksandrov@emlid.com>
+---
+ configs/emlid_neutis_n5_defconfig | 3 +++
+ include/configs/sunxi-common.h    | 5 +++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/configs/emlid_neutis_n5_defconfig b/configs/emlid_neutis_n5_defconfig
+index 66244b6..0f324fc 100644
+--- a/configs/emlid_neutis_n5_defconfig
++++ b/configs/emlid_neutis_n5_defconfig
+@@ -15,3 +15,6 @@ CONFIG_OF_LIBFDT_OVERLAY=y
+ # CONFIG_SPL_DOS_PARTITION is not set
+ # CONFIG_SPL_ISO_PARTITION is not set
+ # CONFIG_SPL_EFI_PARTITION is not set
++# CONFIG_ENV_IS_IN_FAT is not set
++CONFIG_ENV_IS_IN_MMC=y
++CONFIG_ENV_OFFSET=0x800000
+diff --git a/include/configs/sunxi-common.h b/include/configs/sunxi-common.h
+index b515e9b..97c2088 100644
+--- a/include/configs/sunxi-common.h
++++ b/include/configs/sunxi-common.h
+@@ -524,4 +524,9 @@ extern int soft_i2c_gpio_scl;
+ #define CONFIG_EXTRA_ENV_SETTINGS
+ #endif
+ 
++#define CONFIG_BOOTCOUNT_LIMIT
++#define CONFIG_BOOTCOUNT_ENV
++#undef CONFIG_SYS_MMC_ENV_DEV
++#undef CONFIG_ENV_OFFSET
++
+ #endif /* _SUNXI_COMMON_CONFIG_H */
+-- 
+2.7.4
+

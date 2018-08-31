@@ -1,0 +1,41 @@
+From 0cd142f83ca1dfa7d42e29bfe5e86463c2d10ec2 Mon Sep 17 00:00:00 2001
+From: Aleksandr Aleksandrov <aleksandr.aleksandrov@emlid.com>
+Date: Tue, 23 Oct 2018 17:34:36 +0300
+Subject: [PATCH 2/2] neutis: bsp: u-boot: patches: relax U-Boot size limits
+
+Upstream U-Boot is well past 546Kb. In order to support newer ATF that
+is also drastically bigger we need to lift some limits.
+
+Our current settings for Mender for Neutis N5 board:
+CONFIG_ENV_OFFSET=0x800000
+CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR=0x50
+
+According U-boot's comment:
+CONFIG_BOARD_SIZE_LIMIT is actually (CONFIG_ENV_OFFSET -
+(CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR * 512)), but the value will be used
+directly in a makefile, without the preprocessor expansion.
+
+The actual CONFIG_BOARD_SIZE_LIMIT is 0x7f6000
+
+Signed-off-by: Aleksandr Aleksandrov <aleksandr.aleksandrov@emlid.com>
+Signed-off-by: Georgii Staroselskii <georgii.staroselskii@emlid.com>
+---
+ include/configs/sunxi-common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/configs/sunxi-common.h b/include/configs/sunxi-common.h
+index 97c2088..9269563 100644
+--- a/include/configs/sunxi-common.h
++++ b/include/configs/sunxi-common.h
+@@ -147,7 +147,7 @@
+  * (CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR * 512)), but the value will be used
+  * directly in a makefile, without the preprocessor expansion.
+  */
+-#define CONFIG_BOARD_SIZE_LIMIT		0x7e000
++#define CONFIG_BOARD_SIZE_LIMIT		0x7f6000
+ #endif
+ 
+ #if CONFIG_MMC_SUNXI_SLOT_EXTRA != -1
+-- 
+2.7.4
+
