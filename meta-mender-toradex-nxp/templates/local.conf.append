@@ -1,0 +1,11 @@
+
+# Appended fragment from meta-mender-community/meta-mender-toradex-nxp/templates
+
+INHERIT_remove = "mender-full"
+
+INHERIT_append_colibri-imx7 = " mender-full-ubi"
+
+MENDER_MTDIDS = "nand0=gpmi-nand"
+MENDER_MTDPARTS = "gpmi-nand:512k(mx7-bcb),1536k(u-boot1)ro,1536k(u-boot2)ro,512k(u-boot-env),-(ubi)"
+MENDER_STORAGE_PEB_SIZE = "131072"
+MENDER_STORAGE_TOTAL_SIZE_MB = "512"
