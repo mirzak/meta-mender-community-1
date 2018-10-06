@@ -10,6 +10,7 @@ BBLAYERS ?= " \
   ${TOPDIR}/../sources/poky/meta-poky \
   ${TOPDIR}/../sources/poky/meta-yocto-bsp \
   ${TOPDIR}/../sources/meta-intel \
+  ${TOPDIR}/../sources/meta-qt5 \
   ${TOPDIR}/../sources/meta-mender/meta-mender-core \
   ${TOPDIR}/../sources/meta-mender/meta-mender-demo \
 "
