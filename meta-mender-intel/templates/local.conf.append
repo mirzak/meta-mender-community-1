@@ -17,3 +17,19 @@ MENDER_GRUB_STORAGE_DEVICE = "hd0"
 # Lets increase the total storage as the core-image-base target is quite
 # common and is the only image type that fully supports target device hardware.
 MENDER_STORAGE_TOTAL_SIZE_MB_DEFAULT = "4096"
+
+# from boot2qt templates
+
+DISTRO = "b2qt"
+
+MACHINE_HOSTNAME ?= "b2qt-${MACHINE}"
+
+INHERIT += "image-buildinfo"
+INHERIT += "internal-build"
+
+ACCEPT_FSL_EULA = "1"
+LICENSE_FLAGS_WHITELIST = "commercial"
+
+QT_SDK_PATH = ""
+
+include conf/distro/include/${MACHINE}.pre.inc

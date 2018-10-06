@@ -10,7 +10,16 @@ BBLAYERS ?= " \
   ${TOPDIR}/../sources/poky/meta-poky \
   ${TOPDIR}/../sources/poky/meta-yocto-bsp \
   ${TOPDIR}/../sources/meta-intel \
+  ${TOPDIR}/../sources/meta-openembedded/meta-oe \
+  ${TOPDIR}/../sources/meta-openembedded/meta-python \
+  ${TOPDIR}/../sources/meta-openembedded/meta-networking \
+  ${TOPDIR}/../sources/meta-openembedded/meta-initramfs \
+  ${TOPDIR}/../sources/meta-openembedded/meta-multimedia \
+  ${TOPDIR}/../sources/meta-boot2qt/meta-boot2qt \
+  ${TOPDIR}/../sources/meta-boot2qt/meta-boot2qt-distro \
+  ${TOPDIR}/../sources/meta-boot2qt/meta-intel-extras \
+  ${TOPDIR}/../sources/meta-mingw \
+  ${TOPDIR}/../sources/meta-qt5 \
   ${TOPDIR}/../sources/meta-mender/meta-mender-core \
-  ${TOPDIR}/../sources/meta-mender/meta-mender-demo \
 "
 
