@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <manifest>
+  <default sync-j="4" revision="sumo"/>
+
+  <remote fetch="git://git.yoctoproject.org"        name="yocto"/>
+  <remote fetch="git://git.openembedded.org"        name="oe"/>
+  <remote fetch="https://github.com/Neutis"         name="neutis"/>
+  <remote fetch="https://github.com/meta-qt5"       name="qt5"/>
+
+  <project name="poky" remote="yocto" revision="bb91b2ae3ee5cf108aa2f9b78abb14d5aa00831d" path="sources/poky"/>
+  <project name="meta-openembedded" remote="oe" revision="b0950aeff5b630256bb5e25ca15f4d59c115e7c1" path="sources/meta-openembedded"/>
+  <project name="meta-qt5" remote="qt5" revision="c429cedc9d6babf41feb70211285662356c4125d" path="sources/meta-qt5"/>
+  <project name="meta-sunxi" remote="neutis" revision="3a4d4414f65f1a7aa8936a9674cbe16174b73597" path="sources/meta-sunxi"/>
+  <project name="meta-emlid-neutis" remote="neutis" revision="e020b06b5c5b36581ae72ab7a4b932913cdf96a0" path="sources/meta-emlid-neutis"/>
+  <project name="meta-emlid-neutis-examples" remote="neutis" revision="c7fdae40547ba7198bfeca3490bf7e0d99136478" path="sources/meta-emlid-neutis-examples"/>
+  <project name="meta-emlid-neutis-manufacturing" remote="neutis" revision="e088e22dd6418da88962dffc643a5c22c0346f72" path="sources/meta-emlid-neutis-manufacturing"/>
+
+  <include name="scripts/mender.xml"/>
+
+  </manifest>

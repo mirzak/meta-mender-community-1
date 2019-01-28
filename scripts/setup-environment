@@ -21,6 +21,7 @@ targets=(
     "atmel"
     "beaglebone"
     "intel"
+    "neutis"
     "nxp"
     "qemu"
     "raspberrypi"

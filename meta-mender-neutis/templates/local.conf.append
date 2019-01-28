@@ -1,0 +1,27 @@
+# Appended fragment from meta-mender-community/meta-mender-neutis/templates
+
+DISTRO = "poky-neutis"
+
+MACHINE ?= "neutis-n5"
+
+INHERIT += "mender-full"
+MENDER_ARTIFACT_NAME = "release-1"
+
+MENDER_STORAGE_DEVICE = "/dev/mmcblk2"
+
+MENDER_IMAGE_BOOTLOADER_FILE = "u-boot-sunxi-with-spl.bin"
+IMAGE_BOOT_FILES_append = " boot.scr"
+ARTIFACTIMG_FSTYPE = "ext4"
+IMAGE_OVERHEAD_FACTOR = "1.0"
+IMAGE_FSTYPES = "sdimg"
+
+MENDER_STORAGE_TOTAL_SIZE_MB = "1600"
+MENDER_UBOOT_STORAGE_DEVICE = "1"
+MENDER_IMAGE_BOOTLOADER_BOOTSECTOR_OFFSET = "16"
+
+MENDER_FEATURES_ENABLE_append = " mender-uboot mender-image-sd"
+MENDER_FEATURES_DISABLE_append = " mender-grub mender-image-uefi"
+
+NEUTIS_DISTRO_VERSION = "1.1.1"
+
+PACKAGE_CLASSES ?= "package_ipk"
