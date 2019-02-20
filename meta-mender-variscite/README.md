@@ -1,5 +1,8 @@
 # Mender integration for Variscite SoMs
 
+**NOTE!** This is only compile tested, if you are able to verify this on
+a hardware remove this text.
+
 Variscite SoM's are configurable when you order them, this means that the
 integration can be configuration specific and you might need to make
 adjustments based on your configuration.
