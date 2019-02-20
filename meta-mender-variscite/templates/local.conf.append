@@ -17,4 +17,5 @@ MENDER_STORAGE_DEVICE = "/dev/mmcblk0"
 PREFERRED_PROVIDER_u-boot-fw-utils = "u-boot-fw-utils"
 PREFERRED_RPROVIDER_u-boot-fw-utils = "u-boot-fw-utils"
 
-UBOOT_CONFIG = "sd"
+UBOOT_CONFIG = ""
+UBOOT_MACHINE = "mx6ul_var_dart_mmc_defconfig"
