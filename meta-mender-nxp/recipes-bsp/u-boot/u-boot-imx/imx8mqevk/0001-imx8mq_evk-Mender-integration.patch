@@ -1,0 +1,107 @@
+From 89349e7c61152b757366723ad37c6d0799874195 Mon Sep 17 00:00:00 2001
+From: Mirza Krak <mirza.krak@northern.tech>
+Date: Mon, 15 Apr 2019 19:24:47 +0200
+Subject: [PATCH 1/2] imx8mq_evk: Mender integration
+
+Signed-off-by: Mirza Krak <mirza.krak@northern.tech>
+---
+ configs/imx8mq_evk_defconfig |  1 -
+ include/configs/imx8mq_evk.h | 15 +++++++++------
+ include/env_default.h        |  3 +++
+ scripts/Makefile.autoconf    |  3 ++-
+ 4 files changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/configs/imx8mq_evk_defconfig b/configs/imx8mq_evk_defconfig
+index 5af0807dc3..db91188580 100644
+--- a/configs/imx8mq_evk_defconfig
++++ b/configs/imx8mq_evk_defconfig
+@@ -38,4 +38,3 @@ CONFIG_SPL_LOAD_FIT=y
+ CONFIG_USB_TCPC=y
+ CONFIG_VIDEO=y
+ CONFIG_VIDEO_IMX8_HDMI=y
+-
+diff --git a/include/configs/imx8mq_evk.h b/include/configs/imx8mq_evk.h
+index 86a2bc64d2..509fe316e5 100644
+--- a/include/configs/imx8mq_evk.h
++++ b/include/configs/imx8mq_evk.h
+@@ -141,8 +141,8 @@
+ 	"loadbootscript=fatload mmc ${mmcdev}:${mmcpart} ${loadaddr} ${script};\0" \
+ 	"bootscript=echo Running bootscript from mmc ...; " \
+ 		"source\0" \
+-	"loadimage=fatload mmc ${mmcdev}:${mmcpart} ${loadaddr} ${image}\0" \
+-	"loadfdt=fatload mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}\0" \
++	"loadimage=ext4load ${mender_uboot_root} ${loadaddr} /boot/${image}\0" \
++	"loadfdt=ext4load ${mender_uboot_root} ${fdt_addr} /boot/${fdt_file}\0" \
+ 	"mmcboot=echo Booting from mmc ...; " \
+ 		"run mmcargs; " \
+ 		"if test ${boot_fdt} = yes || test ${boot_fdt} = try; then " \
+@@ -180,12 +180,14 @@
+ 		   "if run loadbootscript; then " \
+ 			   "run bootscript; " \
+ 		   "else " \
++		   	   "run mender_setup; " \
+ 			   "if run loadimage; then " \
+ 				   "run mmcboot; " \
++				   "run mender_try_to_recover; " \
+ 			   "else run netboot; " \
+ 			   "fi; " \
+ 		   "fi; " \
+-	   "else booti ${loadaddr} - ${fdt_addr}; fi"
++	   "fi"
+ 
+ /* Link Definitions */
+ #define CONFIG_LOADADDR			0x40480000
+@@ -201,11 +203,12 @@
+         (CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
+ 
+ #define CONFIG_ENV_OVERWRITE
+-#define CONFIG_ENV_OFFSET               (64 * SZ_64K)
+ #define CONFIG_ENV_SIZE			0x1000
+ #define CONFIG_ENV_IS_IN_MMC
+-#define CONFIG_SYS_MMC_ENV_DEV		1   /* USDHC2 */
+-#define CONFIG_MMCROOT			"/dev/mmcblk1p2"  /* USDHC2 */
++#define CONFIG_MMCROOT			"${mender_kernel_root}"  /* USDHC2 */
++
++#define CONFIG_BOOTCOUNT_LIMIT
++#define CONFIG_BOOTCOUNT_ENV
+ 
+ /* Size of malloc() pool */
+ #define CONFIG_SYS_MALLOC_LEN		((CONFIG_ENV_SIZE + (2*1024) + (16*1024)) * 1024)
+diff --git a/include/env_default.h b/include/env_default.h
+index ea6704a972..700aedb34d 100644
+--- a/include/env_default.h
++++ b/include/env_default.h
+@@ -10,6 +10,8 @@
+ 
+ #include <env_callback.h>
+ 
++#include <env_mender.h>
++
+ #ifdef DEFAULT_ENV_INSTANCE_EMBEDDED
+ env_t environment __PPCENV__ = {
+ 	ENV_CRC,	/* CRC Sum */
+@@ -22,6 +24,7 @@ static char default_environment[] = {
+ #else
+ const uchar default_environment[] = {
+ #endif
++	MENDER_ENV_SETTINGS
+ #ifdef	CONFIG_ENV_CALLBACK_LIST_DEFAULT
+ 	ENV_CALLBACK_VAR "=" CONFIG_ENV_CALLBACK_LIST_DEFAULT "\0"
+ #endif
+diff --git a/scripts/Makefile.autoconf b/scripts/Makefile.autoconf
+index 2a967ff6f3..39e5e044a4 100644
+--- a/scripts/Makefile.autoconf
++++ b/scripts/Makefile.autoconf
+@@ -111,7 +111,8 @@ define filechk_config_h
+ 	echo \#include \<configs/$(CONFIG_SYS_CONFIG_NAME).h\>;		\
+ 	echo \#include \<asm/config.h\>;				\
+ 	echo \#include \<linux/kconfig.h\>;				\
+-	echo \#include \<config_fallbacks.h\>;)
++	echo \#include \<config_fallbacks.h\>;				\
++	echo \#include \<config_mender.h\>;)
+ endef
+ 
+ include/config.h: scripts/Makefile.autoconf create_symlink FORCE
+-- 
+2.21.0
+

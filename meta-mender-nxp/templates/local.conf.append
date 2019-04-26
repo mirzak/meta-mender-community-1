@@ -37,3 +37,18 @@ IMAGE_BOOT_FILES_nitrogen8m_append = " \
 	upgrade.scr-${MACHINE};upgrade.scr \
 	imx-boot;u-boot.${MACHINE} \
 "
+
+# Specific Configuration for imx8mqevk
+
+# This represents booting from uSD, remove this line to build an image for eMMC
+MENDER_STORAGE_DEVICE_imx8mqevk = "/dev/mmcblk1"
+o
+# For the i.MX8M SoC's M4 firmware is deployed to the boot partitions which
+# exceed the default size of 16 GB
+MENDER_BOOT_PART_SIZE_MB_imx8mqevk = "32"
+
+MENDER_IMAGE_BOOTLOADER_FILE_imx8mqevk = "u-boot-spl.bin"
+# IMX_BOOT_SEEK * 2, as argument is in blocks of 512 bytes instead of 1kB which
+# is used in WIC
+MENDER_IMAGE_BOOTLOADER_BOOTSECTOR_OFFSET_imx8mqevk = "66"
+
