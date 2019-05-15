@@ -3,10 +3,11 @@
 
   <include name="imx-4.14.98-2.0.0_ga.xml"/>
 
+  <remote fetch="https://github.com/mirzak" name="mirzak"/>
   <remote fetch="https://github.com/mendersoftware" name="mender"/>
 
   <project name="meta-mender" remote="mender" revision="sumo" path="sources/meta-mender"/>
-  <project name="meta-mender-community" remote="mender" revision="sumo" path="sources/meta-mender-community">
+  <project name="meta-mender-community-1" remote="mirzak" revision="sumo-imx" path="sources/meta-mender-community">
     <linkfile src="meta-mender-imx/scripts/fsl-setup-mender.sh" dest="fsl-setup-mender.sh"/>
   </project>
 
