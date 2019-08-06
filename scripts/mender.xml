@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
   <manifest>
-  <default sync-j="4" revision="thud"/>
+  <default sync-j="4" revision="warrior"/>
 
   <remote fetch="https://github.com/mendersoftware" name="mender"/>
+  <remote fetch="https://github.com/mirzak"      name="mirzak"/>
 
-  <project name="meta-mender" remote="mender" revision="thud" path="sources/meta-mender"/>
-  <project name="meta-mender-community" remote="mender" revision="thud" path="sources/meta-mender-community">
+  <project name="meta-mender" remote="mirzak" revision="warrior-raspberrypi" path="sources/meta-mender"/>
+  <project name="meta-mender-community-1" remote="mirzak" revision="warrior-rpi" path="sources/meta-mender-community">
     <copyfile dest="setup-environment" src="scripts/setup-environment"/>
   </project>
 
